@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view>
+  <view wx:if="{{!hasLogin}}" class="userinfo">
+    <view style="text-align: center; font-size: 16px;margin-top: 50rpx;">授权后可记录宝宝的点点滴滴</view>
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="text-align: center; font-size: 16px;margin-top: 50rpx;">
+      点我授权 
+    </button>
+  </view>
+  <view wx:else>
+    列表
+  </view>
+</view>
