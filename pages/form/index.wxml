@@ -1,6 +1,11 @@
 <!--pages/form/index.wxml-->
 <view wx:if="{{isLogin}}">
-上传表单
+<form bindsubmit="formSubmit">
+  <textarea bindblur="bindTextAreaBlur" auto-height placeholder="让此刻变成永恒..." />
+  <view class="btn-area">
+    <button formType="submit">发布</button>
+  </view>
+</form>
 </view>
 <view wx:else class="error">
 {{emptyText}}

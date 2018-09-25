@@ -1,1 +1,4 @@
 /* pages/form/index.wxss */
+textarea {
+  height: 300rpx;
+}
