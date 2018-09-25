@@ -1,0 +1,7 @@
+<!--pages/form/index.wxml-->
+<view wx:if="{{isLogin}}">
+上传表单
+</view>
+<view wx:else class="error">
+{{emptyText}}
+</view>

@@ -1,11 +1,37 @@
 {
-  "pages":[
-    "pages/index/index"
+  "pages": [
+    "pages/index/index",
+    "pages/detail/index",
+    "pages/form/index",
+    "pages/home/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "宝宝点滴",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#ff6600",
+    "list": [
+      {
+        "selectedIconPath": "images/index_s.png",
+        "iconPath": "images/index.png",
+        "pagePath": "pages/index/index",
+        "text": "别人家宝宝"
+      },
+      {
+        "selectedIconPath": "images/home_s.png",
+        "iconPath": "images/home.png",
+        "pagePath": "pages/home/index",
+        "text": "我们家宝宝"
+      },
+      {
+        "selectedIconPath": "images/form_s.png",
+        "iconPath": "images/form.png",
+        "pagePath": "pages/form/index",
+        "text": "记录宝宝点滴"
+      }
+    ]
   }
 }
