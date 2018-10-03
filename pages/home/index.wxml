@@ -1,6 +1,6 @@
 <!--pages/home/index.wxml-->
 <view wx:if="{{isLogin && list.length > 0}}">
-  <view class="record" wx:for="{{list}}" wx:for-item="record" wx:key="index">
+  <view bindtap="detail" data-id="{{record.id}}" class="record" wx:for="{{list}}" wx:for-item="record" wx:key="index">
     <view style='height: 30rpx;'>
       <view class="authorLabel">发表人：</view>
       <view class='author'>{{record.openid}}</view>

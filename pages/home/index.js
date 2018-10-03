@@ -17,6 +17,13 @@ Page({
     isLogin: false
   },
 
+  detail: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../detail/index?id=' + id
+    })
+  },
+
   /**
    * Lifecycle function--Called when page load
    */

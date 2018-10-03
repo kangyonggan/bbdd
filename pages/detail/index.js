@@ -1,18 +1,78 @@
 // pages/detail/index.js
+const app = getApp()
+const util = require("../../utils/util.js")
 Page({
 
   /**
    * Page initial data
    */
   data: {
-
+    apiUrl: app.apiUrl,
+    id: '',
+    record: {},
+    isLoading: false,
+    emptyText: '加载中...'
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    if (this.data.isLoading) {
+      return;
+    }
+    this.setData({
+      id: options.id,
+      emptyText: '加载中...'
+    });
+    this.loadData();
+  },
 
+  /**
+   * 加载数据
+   */
+  loadData: function (id) {
+    let that = this;
+    // 显示顶部刷新图标
+    wx.showNavigationBarLoading();
+    wx.request({
+      method: "GET",
+      url: app.apiUrl + "/wx/record/" + that.data.id,
+      success: function (res) {
+        // 隐藏导航栏加载框
+        wx.hideNavigationBarLoading();
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
+
+        if (res.data.respCo == '0000') {
+          res.data.record.createdTime = util.formatTime(res.data.record.createdTime);
+          if (res.data.record.fileNames) {
+            res.data.record.urls = res.data.record.fileNames.split(',');
+          }
+
+          that.setData({
+            isLoading: false,
+            emptyText: '加载成功',
+            record: res.data.record
+          });
+        } else {
+          that.setData({
+            isLoading: false,
+            emptyText: res.data.respMsg
+          });
+        }
+      },
+      fail: function (err) {
+        that.setData({
+          isLoading: false,
+          emptyText: '网络错误，请下拉重试！'
+        });
+        // 隐藏导航栏加载框
+        wx.hideNavigationBarLoading();
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
+      }
+    })
   },
 
   /**
@@ -47,7 +107,13 @@ Page({
    * Page event handler function--Called when user drop down
    */
   onPullDownRefresh: function () {
-
+    if (this.data.isLoading) {
+      return;
+    }
+    this.setData({
+      emptyText: '加载中...'
+    });
+    this.loadData();
   },
 
   /**

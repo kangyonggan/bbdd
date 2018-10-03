@@ -23,6 +23,13 @@ Page({
     this.loadData(true);
   },
 
+  detail: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../detail/index?id=' + id
+    })
+  },
+  
   /**
    * 加载数据
    */

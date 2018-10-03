@@ -1,2 +1,15 @@
-<!--pages/detail/index.wxml-->
-<text>pages/detail/index.wxml</text>
+<!--pages/home/index.wxml-->
+<view class="record" wx:if="{{record.id}}">
+  <view style='height: 30rpx;'>
+    <view class="authorLabel">发表人：</view>
+    <view class='author'>{{record.openid}}</view>
+    <view class='date'>{{record.createdTime}}</view>
+  </view>
+  <view style='clear: both;'>{{record.content}}</view>
+  <view wx:if="{{record.urls}}">
+  <image class="img" wx:for="{{record.urls}}" wx:for-item="url" wx:key="index" src='{{apiUrl}}{{url}}'/>
+  </view>
+</view>
+<view class='error' wx:else>
+{{emptyText}}
+</view>
