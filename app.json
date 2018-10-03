@@ -18,13 +18,13 @@
         "selectedIconPath": "images/index_s.png",
         "iconPath": "images/index.png",
         "pagePath": "pages/index/index",
-        "text": "别人家宝宝"
+        "text": "全部小宝宝"
       },
       {
         "selectedIconPath": "images/home_s.png",
         "iconPath": "images/home.png",
         "pagePath": "pages/home/index",
-        "text": "我们家宝宝"
+        "text": "自己家宝宝"
       },
       {
         "selectedIconPath": "images/form_s.png",

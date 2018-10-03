@@ -8,8 +8,18 @@ Page({
    * Page initial data
    */
   data: {
+    apiUrl: app.apiUrl,
     isLogin: false,
-    emptyText: '登录中...'
+    loading: false,
+    emptyText: '登录中...',
+    content: '',
+    filePaths: []
+  },
+
+  inputContent: function (e) {
+    this.setData({
+      content: e.detail.value
+    }) 
   },
 
   /**
@@ -45,6 +55,121 @@ Page({
    */
   onUnload: function () {
 
+  },
+
+  /**
+   * 表单提交
+   */
+  formSubmit: function () {
+    if (this.data.content == '' && this.data.filePaths.length == 0) {
+      app.message('内容和图片不能同时为空');
+      return;
+    }
+
+    let that = this;
+    this.setData({
+      loading: true
+    })
+    wx.request({
+      url: app.apiUrl + "/wx/saveRecord",
+      method: 'POST',
+      data: {
+        content: that.data.content,
+        fileNames: that.data.filePaths.join(','),
+        openid: app.openId
+      },
+      success: function (res) {
+        that.setData({
+          loading: false
+        })
+        if (res.data.respCo == '0000') {
+          that.setData({
+            content: '',
+            filePaths: []
+          });
+          wx.switchTab({
+            url: '../home/index'
+          })
+        } else {
+          app.message(res.data.respMsg);
+        }
+      },
+      fail: function () {
+        app.message('网络异常, 请稍后再试');
+
+        that.setData({
+          loading: false
+        })
+      }
+    })
+  },
+
+  /**
+   * 删除
+   */
+  delImage: function(e) {
+    let that = this;
+    wx.showActionSheet({
+      itemList: ['删除'],
+      itemColor: "#f60",
+      success: function (res) {
+        if (!res.cancel) {
+          let arr = that.data.filePaths;
+          let newArr = [];
+          let index = e.target.dataset.index;
+          for (var i = 0; i < arr.length; i++) {
+            if (i != index) {
+              newArr.push(arr[i]);
+            }
+          }
+          that.setData({
+            filePaths: newArr
+          });
+        }
+      }
+    });
+  },
+
+/**
+ * 选择相册
+ */
+  chooseImageTap: function () {
+    let _this = this;
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        for (var i = 0; i < res.tempFilePaths.length; i++) {
+          _this.upload(res.tempFilePaths[i], function(url) {
+            let arr = _this.data.filePaths;
+            arr[arr.length] = url;
+            _this.setData({
+              filePaths: arr
+            });
+          });
+        }
+      }
+    })
+  },
+
+  /**
+   * 文件上传
+   */
+  upload: function (filePath, success) {
+    wx.uploadFile({
+      url: app.apiUrl + "/file/upload",
+      filePath: filePath,
+      name: 'file',
+      success: function (res) {
+        if (success) {
+          success(res.data)
+        }
+      },
+      fail: function () {
+        app.message('上传失败, 请稍后再试');
+      }
+    })
   },
 
   /**

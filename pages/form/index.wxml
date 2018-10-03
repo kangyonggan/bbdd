@@ -1,9 +1,11 @@
 <!--pages/form/index.wxml-->
 <view wx:if="{{isLogin}}">
 <form bindsubmit="formSubmit">
-  <textarea bindblur="bindTextAreaBlur" auto-height placeholder="让此刻变成永恒..." />
+  <textarea bindinput="inputContent" class="textarea" placeholder="让此刻变成永恒..." value='{{content}}'/>
+  <image class="image" catchtap="delImage" wx:for="{{filePaths}}" wx:for-item="path" wx:key="index" data-index="{{index}}" src='{{apiUrl}}{{path}}'></image>
+  <image class="image" src='/images/add.png' catchtap="chooseImageTap"></image>
   <view class="btn-area">
-    <button formType="submit">发布</button>
+    <button formType="submit" disabled='{{loading}}' >发表</button>
   </view>
 </form>
 </view>

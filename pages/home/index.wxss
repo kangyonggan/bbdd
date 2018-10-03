@@ -1,1 +1,33 @@
 /* pages/home/index.wxss */
+.record {
+  border-bottom: 1px solid #ddd;
+  padding: 20rpx;
+  background: #fefefe;
+  min-height: 170rpx;
+}
+
+.authorLabel {
+  float: left;
+  font-size: 13px;
+  width: 120rpx;
+}
+
+.author {
+  float: left;
+  font-size: 13px;
+  width: 300rpx;
+  height: 30px;
+  overflow: hidden;
+}
+
+.date {
+  float: right;
+  width: 120rpx;
+  font-size: 13px;
+  height: 30px;
+}
+
+.img {
+  margin-top: 10rpx;
+  max-width: 100%;
+}
