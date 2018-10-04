@@ -7,7 +7,7 @@
   </view>
   <view style='clear: both;'>{{record.content}}</view>
   <view wx:if="{{record.urls}}">
-  <image class="img" wx:for="{{record.urls}}" wx:for-item="url" wx:key="index" src='{{apiUrl}}{{url}}'/>
+  <image data-src="{{url}}" bindtap='preview' mode='widthFix' class="img" wx:for="{{record.urls}}" wx:for-item="url" wx:key="index" src='{{url}}'/>
   </view>
 </view>
 <view class='error' wx:else>

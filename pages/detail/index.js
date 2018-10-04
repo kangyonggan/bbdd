@@ -28,6 +28,14 @@ Page({
     this.loadData();
   },
 
+  preview: function (event) {
+    var src = event.currentTarget.dataset.src;
+    wx.previewImage({
+      current: src,
+      urls: this.data.record.urls 
+    })
+  },
+
   /**
    * 加载数据
    */
@@ -48,6 +56,9 @@ Page({
           res.data.record.createdTime = util.formatTime(res.data.record.createdTime);
           if (res.data.record.fileNames) {
             res.data.record.urls = res.data.record.fileNames.split(',');
+            for (var i = 0; i < res.data.record.urls.length; i++) {
+              res.data.record.urls[i] = that.data.apiUrl + res.data.record.urls[i];
+            }
           }
 
           that.setData({

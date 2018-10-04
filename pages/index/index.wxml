@@ -8,7 +8,7 @@
     </view>
     <view style='clear: both;'>{{record.content}}</view>
     <view wx:if="{{record.urls}}">
-    <image class="img" wx:for="{{record.urls}}" wx:for-item="url" wx:key="index" src='{{apiUrl}}{{url}}'/>
+    <image mode='aspectFill' class="img" wx:for="{{record.urls}}" wx:for-item="url" wx:key="index" src='{{apiUrl}}{{url}}'/>
     </view>
   </view>
 </view>
