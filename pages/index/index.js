@@ -88,6 +88,9 @@ Page({
             if (dataList[i].fileNames) {
               dataList[i].urls = dataList[i].fileNames.split(',');
             }
+            if (dataList[i].videoNames) {
+              dataList[i].videos = dataList[i].videoNames.split(',');
+            }
           }
 
           that.setData({

@@ -1,14 +1,17 @@
 <!--pages/home/index.wxml-->
 <view wx:if="{{list.length > 0}}">
-  <view bindtap="detail" data-id="{{record.id}}" class="record" wx:for="{{list}}" wx:for-item="record" wx:key="index">
-    <view style='height: 30rpx;'>
+  <view class="record" wx:for="{{list}}" wx:for-item="record" wx:key="index">
+    <view style='height: 30rpx;' bindtap="detail" data-id="{{record.id}}" >
       <view class="authorLabel">发表人：</view>
       <view class='author'>{{record.openid}}</view>
       <view class='date'>{{record.createdTime}}</view>
     </view>
-    <view style='clear: both;'>{{record.content}}</view>
-    <view wx:if="{{record.urls}}">
+    <view style='clear: both;' bindtap="detail" data-id="{{record.id}}" >{{record.content}}</view>
+    <view wx:if="{{record.urls}}" bindtap="detail" data-id="{{record.id}}" >
     <image mode='aspectFill' class="img" wx:for="{{record.urls}}" wx:for-item="url" wx:key="index" src='{{apiUrl}}{{url}}'/>
+    </view>
+    <view wx:if="{{record.videos}}">
+    <video class="video" wx:for="{{record.videos}}" wx:for-item="url" wx:key="index" src='{{apiUrl}}{{url}}'></video>
     </view>
   </view>
 </view>

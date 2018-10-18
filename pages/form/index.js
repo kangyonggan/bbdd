@@ -13,7 +13,8 @@ Page({
     loading: false,
     emptyText: '登录中...',
     content: '',
-    filePaths: []
+    filePaths: [],
+    videoPaths: []
   },
 
   inputContent: function (e) {
@@ -61,8 +62,8 @@ Page({
    * 表单提交
    */
   formSubmit: function () {
-    if (this.data.content == '' && this.data.filePaths.length == 0) {
-      app.message('内容和图片不能同时为空');
+    if (this.data.content == '') {
+      app.message('内容不能为空');
       return;
     }
 
@@ -76,6 +77,7 @@ Page({
       data: {
         content: that.data.content,
         fileNames: that.data.filePaths.join(','),
+        videoNames: that.data.videoPaths.join(','),
         openid: app.openId
       },
       success: function (res) {
@@ -134,6 +136,38 @@ Page({
  * 选择相册
  */
   chooseImageTap: function () {
+    let _this = this;
+
+    wx.showActionSheet({
+      itemList: ['选择图片', '选择视频'],
+      success(e) {
+        if (e.tapIndex == 0) {
+          _this.chooseImages();
+        } else if (e.tapIndex == 1) {
+          _this.chooseVideos();
+        }
+      }
+    })
+  },
+
+  chooseVideos: function () {
+    let _this = this;
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      success(res) {
+        _this.upload(res.tempFilePath, function (url) {
+          console.log(url);
+          let arr = _this.data.videoPaths;
+          arr[arr.length] = url;
+          _this.setData({
+            videoPaths: arr
+          });
+        });
+      }
+    })
+  },
+
+  chooseImages: function () {
     let _this = this;
     wx.chooseImage({
       count: 9,

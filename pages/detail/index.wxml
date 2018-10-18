@@ -9,6 +9,9 @@
   <view wx:if="{{record.urls}}">
   <image data-src="{{url}}" bindtap='preview' mode='widthFix' class="img" wx:for="{{record.urls}}" wx:for-item="url" wx:key="index" src='{{url}}'/>
   </view>
+    <view wx:if="{{record.videos}}">
+    <video class="video" wx:for="{{record.videos}}" wx:for-item="url" wx:key="index" src='{{url}}'></video>
+    </view>
 </view>
 <view class='error' wx:else>
 {{emptyText}}

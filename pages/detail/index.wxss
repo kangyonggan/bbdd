@@ -31,3 +31,10 @@
   margin-top: 10rpx;
   max-width: 100%;
 }
+
+.video {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20rpx;
+}

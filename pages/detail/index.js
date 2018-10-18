@@ -60,6 +60,12 @@ Page({
               res.data.record.urls[i] = that.data.apiUrl + res.data.record.urls[i];
             }
           }
+          if (res.data.record.videoNames) {
+            res.data.record.videos = res.data.record.videoNames.split(',');
+            for (var i = 0; i < res.data.record.videos.length; i++) {
+              res.data.record.videos[i] = that.data.apiUrl + res.data.record.videos[i];
+            }
+          }
 
           that.setData({
             isLoading: false,
