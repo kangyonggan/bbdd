@@ -2,8 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/detail/index",
-    "pages/form/index",
-    "pages/home/index"
+    "pages/form/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -18,20 +17,15 @@
         "selectedIconPath": "images/index_s.png",
         "iconPath": "images/index.png",
         "pagePath": "pages/index/index",
-        "text": "全部小宝宝"
-      },
-      {
-        "selectedIconPath": "images/home_s.png",
-        "iconPath": "images/home.png",
-        "pagePath": "pages/home/index",
-        "text": "自己家宝宝"
+        "text": "宝宝记录"
       },
       {
         "selectedIconPath": "images/form_s.png",
         "iconPath": "images/form.png",
         "pagePath": "pages/form/index",
-        "text": "记录宝宝点滴"
+        "text": "记录宝宝"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

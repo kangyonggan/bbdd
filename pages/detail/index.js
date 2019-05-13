@@ -45,7 +45,7 @@ Page({
     wx.showNavigationBarLoading();
     wx.request({
       method: "GET",
-      url: app.apiUrl + "/wx/record/" + that.data.id,
+      url: app.apiUrl + "/api/record/" + that.data.id,
       success: function (res) {
         // 隐藏导航栏加载框
         wx.hideNavigationBarLoading();
@@ -53,17 +53,17 @@ Page({
         wx.stopPullDownRefresh();
 
         if (res.data.respCo == '0000') {
-          res.data.record.createdTime = util.formatTime(res.data.record.createdTime);
-          if (res.data.record.fileNames) {
-            res.data.record.urls = res.data.record.fileNames.split(',');
-            for (var i = 0; i < res.data.record.urls.length; i++) {
-              res.data.record.urls[i] = that.data.apiUrl + res.data.record.urls[i];
+          res.data.data.record.createdTime = util.formatTime(res.data.record.createdTime);
+          if (res.data.data.record.fileNames) {
+            res.data.data.record.urls = res.data.data.record.fileNames.split(',');
+            for (var i = 0; i < res.data.data.record.urls.length; i++) {
+              res.data.data.record.urls[i] = that.data.apiUrl + res.data.data.record.urls[i];
             }
           }
           if (res.data.record.videoNames) {
-            res.data.record.videos = res.data.record.videoNames.split(',');
-            for (var i = 0; i < res.data.record.videos.length; i++) {
-              res.data.record.videos[i] = that.data.apiUrl + res.data.record.videos[i];
+            res.data.data.record.videos = res.data.data.record.videoNames.split(',');
+            for (var i = 0; i < res.data.data.record.videos.length; i++) {
+              res.data.data.record.videos[i] = that.data.apiUrl + res.data.data.record.videos[i];
             }
           }
 

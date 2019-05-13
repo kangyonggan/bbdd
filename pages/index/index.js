@@ -13,14 +13,8 @@ Page({
     pageNum: 1,
     list: [],
     emptyText: '加载中...',
-    isLoading: false
-  },
-
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onLoad: function (options) {
-    this.loadData(true);
+    isLoading: false,
+    isLogin: false
   },
 
   detail: function (e) {
@@ -29,7 +23,38 @@ Page({
       url: '../detail/index?id=' + id
     })
   },
-  
+
+  /**
+   * Lifecycle function--Called when page load
+   */
+  onLoad: function (options) {
+    let that = this;
+    if (!app.openId) {
+      app.login(function () {
+        that.setData({
+          isLogin: true,
+          emptyText: '登录成功'
+        });
+        that.loadData(true);
+      }, function () {
+        that.setData({
+          isLogin: false,
+          emptyText: '网络错误，请下拉重试！'
+        });
+        // 隐藏导航栏加载框
+        wx.hideNavigationBarLoading();
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
+      });
+    } else {
+      that.setData({
+        isLogin: true,
+        emptyText: '登录成功'
+      });
+      that.loadData(true);
+    }
+  },
+
   /**
    * 加载数据
    */
@@ -55,20 +80,20 @@ Page({
     }
     wx.request({
       method: "GET",
-      url: app.apiUrl + "/wx/records?pageNum=" + that.data.pageNum,
+      url: app.apiUrl + "/api/record?openid=" + app.openId + "&pageNum=" + that.data.pageNum,
       success: function (res) {
         // 隐藏导航栏加载框
         wx.hideNavigationBarLoading();
         // 停止下拉动作
         wx.stopPullDownRefresh();
         if (res.data.respCo == '0000') {
-          if (res.data.pageInfo.list.length == 0) {
+          if (res.data.data.pageInfo.list.length == 0) {
             that.setData({
               isLoading: false
             });
             if (isInit) {
               that.setData({
-                emptyText: '暂时没有宝宝点滴'
+                emptyText: '您还没有记录宝宝点滴'
               });
             } else {
               app.message("没有更加记录了");
@@ -82,7 +107,7 @@ Page({
             });
           }
 
-          let dataList = res.data.pageInfo.list;
+          let dataList = res.data.data.pageInfo.list;
           for (var i = 0; i < dataList.length; i++) {
             dataList[i].createdTime = util.formatTime(dataList[i].createdTime);
             if (dataList[i].fileNames) {
@@ -156,7 +181,31 @@ Page({
    * Called when page reach bottom
    */
   onReachBottom: function () {
-    this.loadData(false);
+    let that = this;
+    if (!app.openId) {
+      app.login(function () {
+        that.setData({
+          isLogin: true,
+          emptyText: '登录成功'
+        });
+        that.loadData(false);
+      }, function () {
+        that.setData({
+          isLogin: false,
+          emptyText: '网络错误，请下拉重试！'
+        });
+        // 隐藏导航栏加载框
+        wx.hideNavigationBarLoading();
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
+      });
+    } else {
+      that.setData({
+        isLogin: true,
+        emptyText: '登录成功'
+      });
+      that.loadData(false);
+    }
   },
 
   /**

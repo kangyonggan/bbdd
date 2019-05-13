@@ -72,7 +72,7 @@ Page({
       loading: true
     })
     wx.request({
-      url: app.apiUrl + "/wx/saveRecord",
+      url: app.apiUrl + "/api/record",
       method: 'POST',
       data: {
         content: that.data.content,

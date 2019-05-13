@@ -1,6 +1,6 @@
 //app.js
 App({
-  // apiUrl: 'http://localhost:7777',
+  // apiUrl: 'http://localhost:8080',
   apiUrl: 'https://kangyonggan.com',
   onLaunch: function () {
     this.login();
@@ -18,11 +18,11 @@ App({
     wx.login({
       success: function (res) {
         wx.request({
-          url: that.apiUrl + "/wx/getOpenId?jsCode=" + res.code,
+          url: that.apiUrl + "/api/record/openId?jsCode=" + res.code,
           method: 'GET',
           success: function (res) {
             if (res.data.respCo == '0000') {
-              that.openId = res.data.openid;
+              that.openId = res.data.data.openid;
               if (success) {
                 success();
               }
